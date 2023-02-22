@@ -1,7 +1,7 @@
 import pool from "../configs/connectDB";
 
-let getAllUsers = async (req, res) => {
-    const [rows, fields] = await pool.execute("SELECT * FROM users");
+let getAllPresents = async (req, res) => {
+    const [rows, fields] = await pool.execute("SELECT * FROM present");
 
     return res.status(200).json({
         message: "ok",
@@ -9,18 +9,18 @@ let getAllUsers = async (req, res) => {
     });
 };
 
-let createNewUser = async (req, res) => {
-    let { firstName, lastName, email, address } = req.body;
+let createNewPresent = async (req, res) => {
+    let { presentName, presentType } = req.body;
 
-    if (!firstName || !lastName || !email || !address) {
+    if (!presentName || !presentType) {
         return res.status(200).json({
             message: "missing required params",
         });
     }
 
     await pool.execute(
-        "insert into users(firstName, lastName, email, address) values (?, ?, ?, ?)",
-        [firstName, lastName, email, address]
+        "insert into present(presentName, presentType) values (?, ?)",
+        [presentName, presentType]
     );
 
     return res.status(200).json({
@@ -28,17 +28,17 @@ let createNewUser = async (req, res) => {
     });
 };
 
-let updateUser = async (req, res) => {
-    let { firstName, lastName, email, address, id } = req.body;
-    if (!firstName || !lastName || !email || !address || !id) {
+let updatePresent = async (req, res) => {
+    let { presentName, presentType, id } = req.body;
+    if (!presentName || presentType || !id) {
         return res.status(200).json({
             message: "missing required params",
         });
     }
 
     await pool.execute(
-        "update users set firstName= ?, lastName = ? , email = ? , address= ? where id = ?",
-        [firstName, lastName, email, address, id]
+        "update present set presentName= ?, presentType= ?, where id = ?",
+        [presentName, presentType, id]
     );
 
     return res.status(200).json({
@@ -46,22 +46,22 @@ let updateUser = async (req, res) => {
     });
 };
 
-let deleteUser = async (req, res) => {
-    let userId = req.params.id;
-    if (!userId) {
+let deletePresent = async (req, res) => {
+    let presentId = req.params.id;
+    if (!presentId) {
         return res.status(200).json({
             message: "missing required params",
         });
     }
-    await pool.execute("delete from users where id = ?", [userId]);
+    await pool.execute("delete from users where id = ?", [presentId]);
     return res.status(200).json({
         message: "ok",
     });
 };
 
 module.exports = {
-    getAllUsers,
-    createNewUser,
-    updateUser,
-    deleteUser,
+    getAllPresents,
+    createNewPresent,
+    updatePresent,
+    deletePresent
 };

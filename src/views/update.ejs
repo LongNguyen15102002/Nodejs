@@ -4,45 +4,29 @@
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Update user</title>
+        <title>Update present</title>
         <link rel="stylesheet" href="/css/style.css" />
     </head>
     <body>
-        <div class="update-user-container">
-            <form action="/update-user" method="post">
+        <div class="update-present-container">
+            <form action="/update-present" method="post">
                 <div>
-                    <label>First Name:</label>
+                    <label>Present Name:</label>
                     <input
                         type="text"
-                        name="firstName"
-                        value="<%= dataUser.firstName %>"
+                        name="presentName"
+                        value="<%= dataPresent.presentName %>"
                     />
                 </div>
                 <div>
-                    <label>Last Name:</label>
+                    <label>Present Type:</label>
                     <input
                         type="text"
-                        name="lastName"
-                        value="<%= dataUser.lastName %>"
+                        name="presentType"
+                        value="<%= dataPresent.presentType %>"
                     />
                 </div>
-                <div>
-                    <label>Email:</label>
-                    <input
-                        type="email"
-                        name="email"
-                        value="<%= dataUser.email %>"
-                    />
-                </div>
-                <div>
-                    <label>Address:</label>
-                    <input
-                        type="text"
-                        name="address"
-                        value="<%= dataUser.address %>"
-                    />
-                </div>
-                <input type="text" value="<%= dataUser.id   %>" hidden name="id" />
+                <input type="text" value="<%= dataPresent.id   %>" hidden name="id" />
                 <div>
                     <button type="submit" class="btn-save">Save</button>
                 </div>

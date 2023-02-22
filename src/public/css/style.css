@@ -27,30 +27,30 @@ body {
   color: white;
 }
 
-.create-user-container {
+.create-present-container {
   padding: 15px;
   text-align: center;
 }
 
-.create-user-container label {
+.create-present-container label {
   display: block;
 }
 
-.create-user-container .btn-submit {
+.create-present-container .btn-submit {
   margin-top: 15px;
   cursor: pointer;
 }
 
-.update-user-container {
+.update-present-container {
   padding:  15px;
   text-align: center;
 }
 
-.update-user-container label {
+.update-present-container label {
   display: block;
 }
 
-.update-user-container .btn-save {
+.update-present-container .btn-save {
   margin-top: 15px;
   cursor: pointer;
 }

@@ -1,48 +1,48 @@
 import pool from "../configs/connectDB";
 
 let getHomepage = async (req, res) => {
-    const [rows, fields] = await pool.execute("SELECT * FROM users");
+    const [rows, fields] = await pool.execute("SELECT * FROM present");
 
-    return res.render("index.ejs", { dataUser: rows, test: "abc string test" });
+    return res.render("index.ejs", { dataPresent: rows, test: "abc string test" });
 };
 
 let getDetailPage = async (req, res) => {
-    let userId = req.params.id;
-    let [user] = await pool.execute(`select * from users where id = ?`, [
-        userId,
+    let presentId = req.params.id;
+    let [present] = await pool.execute(`select * from present where id = ?`, [
+        presentId,
     ]);
-    return res.send(JSON.stringify(user));
+    return res.send(JSON.stringify(present));
 };
 
-let createNewUser = async (req, res) => {
-    let { firstName, lastName, email, address } = req.body;
+let createNewPresent = async (req, res) => {
+    let { presentName, presentType } = req.body;
 
     await pool.execute(
-        "insert into users(firstName, lastName, email, address) values (?, ?, ?, ?)",
-        [firstName, lastName, email, address]
+        "insert into present(presentName, presentType) values (?, ?)",
+        [presentName, presentType]
     );
 
     return res.redirect("/");
 };
 
-let deleteUser = async (req, res) => {
-    let userId = req.body.userId;
-    await pool.execute("delete from users where id = ?", [userId]);
+let deletePresent = async (req, res) => {
+    let presentId = req.body.presentId;
+    await pool.execute("delete from users where id = ?", [presentId]);
     return res.redirect("/");
 };
 
 let getEditPage = async (req, res) => {
     let id = req.params.id;
-    let [user] = await pool.execute("Select * from users where id = ?", [id]);
-    return res.render("update.ejs", { dataUser: user[0] }); // x <- y
+    let [present] = await pool.execute("Select * from present where id = ?", [id]);
+    return res.render("update.ejs", { dataPresent: present[0] }); // x <- y
 };
 
-let postUpdateUser = async (req, res) => {
-    let { firstName, lastName, email, address, id } = req.body;
+let postUpdatePresent = async (req, res) => {
+    let { presentName, presentType, id } = req.body;
 
     await pool.execute(
-        "update users set firstName= ?, lastName = ? , email = ? , address= ? where id = ?",
-        [firstName, lastName, email, address, id]
+        "update present set presentName = ?, presentType =?, where id = ?",
+        [presentName, presentType, id]
     );
 
     return res.redirect("/");
@@ -51,8 +51,8 @@ let postUpdateUser = async (req, res) => {
 module.exports = {
     getHomepage,
     getDetailPage,
-    createNewUser,
-    deleteUser,
+    createNewPresent,
+    postUpdatePresent,
     getEditPage,
-    postUpdateUser,
+    deletePresent
 };
